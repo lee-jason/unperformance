@@ -1,0 +1,21 @@
+{
+  "name": "unperformance",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Jason Lee <jason.lee@alation.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "react": "^15.4.2"
+  }
+}
