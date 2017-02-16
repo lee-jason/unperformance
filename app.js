@@ -9,10 +9,11 @@ app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname+'/views/index.html'));
 });
 
+console.log(environment);
 if (environment !== "production") {
   app.listen(3000);
 } else {
-  app.listen(8000);
+  app.listen(8080);
 }
 console.log('starting web server on port 3000');
 
