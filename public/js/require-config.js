@@ -6,6 +6,7 @@ requirejs.config({
         react: 'react-with-addons',
         reactdom: 'react-dom',
         jsx: "jsx",
+        text: "text",
         JSXTransformer: 'JSXTransformer'
     },
     shim: {

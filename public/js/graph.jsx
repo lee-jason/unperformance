@@ -5,9 +5,11 @@ define([
 ) {
   var Graph = React.createClass({
     render: function () {
-      return (<div>
-        This is the graph lmao!
-      </div>);
+      return (
+      	<div>
+	        This is the graph lmao!
+	      </div>
+      );
     }
   });
 
