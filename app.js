@@ -10,9 +10,9 @@ app.get('/', function (req, res) {
 });
 
 console.log(environment);
-var port = 3000
+var port = 3000;
 if (environment === "production") {
-  port = 8080;
+  port = process.env.PORT;
 }
 app.listen(port);
 console.log('starting web server on port ' + port);
