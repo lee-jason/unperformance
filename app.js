@@ -10,10 +10,10 @@ app.get('/', function (req, res) {
 });
 
 console.log(environment);
-if (environment !== "production") {
-  app.listen(3000);
-} else {
-  app.listen(8080);
+var port = 3000
+if (environment === "production") {
+  port = 8080;
 }
-console.log('starting web server on port 3000');
+app.listen(port);
+console.log('starting web server on port ' + port);
 
