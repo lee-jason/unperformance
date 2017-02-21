@@ -5,6 +5,7 @@ requirejs.config({
         jquery: 'jquery',
         react: 'react-with-addons',
         reactdom: 'react-dom',
+        underscore: 'underscore',
         jsx: "jsx",
         text: "text",
         JSXTransformer: 'JSXTransformer'
