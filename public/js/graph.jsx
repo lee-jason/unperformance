@@ -1,15 +1,17 @@
 define([
+  'jquery',
   'react',
   'underscore',
   'app/words',
-  'app/DataProcessor',
+  'jsx!app/DataAnalysisView',
   'jsx!app/clock',
   'jsx!app/CustomCell'
 ], function (
+  $,
   React,
   _,
   Words,
-  DataProcessor,
+  DataAnalysisView,
   Clock,
   CustomCell
 ) {
@@ -27,18 +29,19 @@ define([
     getInitialState: function () {
       return {
         data: [],
-        showClock: true
+        showClock: true,
+        tableHistory: []
       };
     },
 
     componentDidMount: function () {
       this.regenerateData();
-
     },
 
     handleCellChange: function (row, col, event) {
-      this.state.data[row][col] = event.target.value;
-      this.setState({data: this.state.data});
+      var dataClone = $.extend(true, [], this.state.data);
+      dataClone[row][col] = event.target.value;
+      this.setState({data: dataClone});
     },
 
     generateCell: function (childValue, row, col) {
@@ -68,7 +71,7 @@ define([
 
     renderTable: function () {
       return (
-        <table>
+        <table key={new Date()}>
           {this.generateRows()}
         </table>
       );
@@ -85,7 +88,11 @@ define([
         }
         data.push(rowContent);
       }
-      this.setState({data: data});
+      var cloneTableHistory = _.clone(this.state.tableHistory);
+      cloneTableHistory.push($('table'));
+      this.setState({
+        data: data, 
+        tableHistory: cloneTableHistory});
     },
 
     toggleClock: function () {
@@ -96,8 +103,10 @@ define([
       return (
       	<div>
           {this.state.showClock ? <Clock /> : null}
+          <span>Times regenerated: {this.state.tableHistory.length}</span>
           <button onClick={this.regenerateData}>Regenerate Data</button>
           <button onClick={this.toggleClock}>Toggle clock</button>
+          <DataAnalysisView data={this.state.data} />
           {this.renderTable()}
 	      </div>
       );

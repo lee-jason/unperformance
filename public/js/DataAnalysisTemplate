@@ -1,0 +1,6 @@
+<div class="data-analysis">
+	<button class="wordCount">count words</button>
+	<button class="charCount">count characters</button>
+	<button class="vowelCount">count vowels</button>
+	<div>Result: <span class="result"></span></div>
+</div>

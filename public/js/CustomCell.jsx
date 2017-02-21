@@ -1,10 +1,8 @@
 define([
 	'react',
-  'app/DataProcessor',
   'app/words'
 ], function (
   React,
-  DataProcessor,
   Words
 ) {
   var CustomCell = React.createClass({
