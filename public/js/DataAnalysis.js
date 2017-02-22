@@ -14,8 +14,16 @@ define([
       "click .vowelCount": "vowelCount"
     },
 
+    initialize: function () {
+      // long initialization simulation
+      var a = '';
+      for (var i = 0; i < 100000; i++) {
+        a += 'a';
+      }
+    },
+
     wordCount: function () {
-      var wordCount = 0;
+      var wordCount;
       for (var i = 0; i < this.model.length; i++) {
         for (var j = 0; j < this.model[i].length; j++) {
           wordCount += this.model[i][j].split(/\s+/).length;
@@ -36,6 +44,6 @@ define([
       this.$el.html(DataAnalysisTemplate);
     }
   });
-
   return DataAnalysis;
+  
 });

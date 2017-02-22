@@ -11,5 +11,6 @@ require([
 ) {
   window.React = React;
   window.ReactDOM = ReactDOM;
+  window.$ = $;
   ReactDOM.render(React.createElement(Graph), $('#main-content')[0]);
 });

@@ -28,8 +28,10 @@ define([
 
     getInitialState: function () {
       return {
+        tableId: 0,
         data: [],
         showClock: true,
+        showAnalysis: true,
         tableHistory: []
       };
     },
@@ -71,7 +73,7 @@ define([
 
     renderTable: function () {
       return (
-        <table key={new Date()}>
+        <table ref="table" key={this.state.tableId}>
           {this.generateRows()}
         </table>
       );
@@ -89,8 +91,9 @@ define([
         data.push(rowContent);
       }
       var cloneTableHistory = _.clone(this.state.tableHistory);
-      cloneTableHistory.push($('table'));
+      // cloneTableHistory.push($('table'));
       this.setState({
+        tableId: ++this.state.tableId,
         data: data, 
         tableHistory: cloneTableHistory});
     },
@@ -99,14 +102,19 @@ define([
       this.setState({showClock: !this.state.showClock});
     },
 
+    toggleDataAnalysis: function () {
+      this.setState({showAnalysis: !this.state.showAnalysis});
+    },
+
     render: function () {
       return (
       	<div>
-          {this.state.showClock ? <Clock /> : null}
+          {/*this.state.showClock ? <Clock /> : null*/}
           <span>Times regenerated: {this.state.tableHistory.length}</span>
+          {this.state.showAnalysis ? <DataAnalysisView data={this.state.data} /> : null}
           <button onClick={this.regenerateData}>Regenerate Data</button>
           <button onClick={this.toggleClock}>Toggle clock</button>
-          <DataAnalysisView data={this.state.data} />
+          <button onClick={this.toggleDataAnalysis}>Toggle data analysis</button>
           {this.renderTable()}
 	      </div>
       );

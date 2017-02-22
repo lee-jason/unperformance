@@ -16,7 +16,8 @@ define([
     render: function () {
       return (
         <td>
-          <input onChange={this.props.onChange} value={this.props.children}></input>
+          {/*<div>{this.props.children}</div>*/}
+          <input ref="input" onChange={this.props.onChange} value={this.props.children}></input>
         </td>
       );
     }
