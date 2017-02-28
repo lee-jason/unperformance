@@ -13,11 +13,17 @@ define([
       };
     },
 
+    handleClick: function () {
+      
+    },
+
     render: function () {
       return (
         <td>
           {/*<div>{this.props.children}</div>*/}
-          <input ref="input" onChange={this.props.onChange} value={this.props.children}></input>
+          <input ref="input" 
+                 onChange={this.props.onChange}
+                 value={this.props.children}></input>
         </td>
       );
     }
