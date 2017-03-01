@@ -4,7 +4,7 @@ define([
   'underscore',
   'app/words',
   'jsx!app/DataAnalysisView',
-  'jsx!app/clock',
+  'jsx!app/Clock',
   'jsx!app/CustomCell'
 ], function (
   $,
