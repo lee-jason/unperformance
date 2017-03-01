@@ -19,10 +19,10 @@ define([
 
     getDefaultProps: function () {
       return {
-        minCols: 5,
-        minRows: 50,
-        maxCols: 5,
-        maxRows: 100
+        minCols: 8,
+        minRows: 100,
+        maxCols: 12,
+        maxRows: 200
       };
     },
 
@@ -30,9 +30,8 @@ define([
       return {
         tableId: 0,
         data: [],
-        showClock: true,
-        showAnalysis: true,
-        tableHistory: []
+        tableHistory: [],
+        highlighting: []
       };
     },
 
@@ -46,10 +45,17 @@ define([
       this.setState({data: dataClone});
     },
 
-    generateCell: function (childValue, row, col) {
+    handleCellClick: function (row, col, event) {
+      var highlightingClone = $.extend(true, [], this.state.highlighting);
+      highlightingClone[row][col] = !highlightingClone[row][col];
+      this.setState({highlighting: highlightingClone});
+    },
+
+    generateCell: function (childValue, highlighted, row, col) {
       return (
         <CustomCell key={"cell:"+row.toString()+col.toString()}
-                    onChange={_.partial(this.handleCellChange, row, col)}>
+                    highlighted={highlighted}
+                    onClick={_.partial(this.handleCellClick, row, col)}>
           {childValue}
         </CustomCell>
       );
@@ -60,7 +66,7 @@ define([
       for (var i = 0; i < this.state.data.length; i++) {
         var cell = [];
         for (var j = 0; j < this.state.data[i].length; j++) {
-          cell.push(this.generateCell(this.state.data[i][j], i, j));
+          cell.push(this.generateCell(this.state.data[i][j], this.state.highlighting[i][j], i, j));
         }
         rows.push(<tr key={"row:"+i}>{cell}</tr>);
       }
@@ -83,38 +89,40 @@ define([
       var colCount = Math.floor(Math.random() * this.props.maxCols) + this.props.minCols;
       var rowCount = Math.floor(Math.random() * this.props.maxRows) + this.props.minRows;
       var data = [];
+      var highlighting = [];
       for (var i = 0; i < rowCount; i++) {
         var rowContent = [];
+        var highlightingRow = [];
         for (var j = 0; j < colCount; j++) {
           rowContent.push(Words.getWord(5));
+          highlightingRow.push(false);
         }
         data.push(rowContent);
+        highlighting.push(highlightingRow);
       }
       var cloneTableHistory = _.clone(this.state.tableHistory);
-      // cloneTableHistory.push($('table'));
+      cloneTableHistory.push($('table'));
       this.setState({
         tableId: ++this.state.tableId,
         data: data, 
-        tableHistory: cloneTableHistory});
-    },
-
-    toggleClock: function () {
-      this.setState({showClock: !this.state.showClock});
-    },
-
-    toggleDataAnalysis: function () {
-      this.setState({showAnalysis: !this.state.showAnalysis});
+        tableHistory: cloneTableHistory,
+        highlighting: highlighting});
     },
 
     render: function () {
       return (
       	<div>
-          {/*this.state.showClock ? <Clock /> : null*/}
+          <div>
+            <p>Can we make typing in these inputs faster?</p>
+            <p>Can we make table regeneration faster?</p>
+            <p>Are we leaking dom nodes?</p>
+            <p>Are we forgetting timers?</p>
+            <p>Are we re-rendering react components needlessly?</p>
+          </div>
+          <Clock key={Math.random()}/>
           <span>Times regenerated: {this.state.tableHistory.length}</span>
-          {this.state.showAnalysis ? <DataAnalysisView data={this.state.data} /> : null}
+          {/*this.state.showAnalysis ? <DataAnalysisView data={this.state.data} /> : null*/}
           <button onClick={this.regenerateData}>Regenerate Data</button>
-          <button onClick={this.toggleClock}>Toggle clock</button>
-          <button onClick={this.toggleDataAnalysis}>Toggle data analysis</button>
           {this.renderTable()}
 	      </div>
       );

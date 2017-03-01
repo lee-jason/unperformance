@@ -10,3 +10,15 @@ table td {
 table tr:nth-child(even) {
 	background-color: aliceblue;
 }
+
+.highlighted {
+	background-color: yellow;
+}
+
+.clock {
+	position: fixed;
+	top:0;
+	right:0;
+	background-color: white;
+	border: 1px solid black;
+}

@@ -1,7 +1,5 @@
 define(['react'], function (React) {
-	/*
-    Issues: animationLoop timer loop doesn't get cleared when timer unmounts 
-   */
+
   var Clock = React.createClass({
     getInitialState: function () {
       return {time: 'initialized time'};
@@ -12,7 +10,7 @@ define(['react'], function (React) {
     },
 
     componentWillUnmount: function () {
-    	this.stopTimer();
+      this.unmounted = true;
     },
 
     generateTime: function (date) {
@@ -21,15 +19,13 @@ define(['react'], function (React) {
 
     startTimer: function () {
       var animationLoop = function () {
-        this.setState({time: this.generateTime(new Date())});
-        this.requestId = window.requestAnimationFrame(animationLoop);
+        if (this && !this.unmounted) {
+          this.setState({time: this.generateTime(new Date())});
+        }
+        window.requestAnimationFrame(animationLoop);
       }.bind(this);
 
-      this.requestId = window.requestAnimationFrame(animationLoop);
-    },
-
-    stopTimer: function () {
-      window.cancelAnimationFrame(this.requestId);
+      window.requestAnimationFrame(animationLoop);
     },
 
     render: function () {

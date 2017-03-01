@@ -8,22 +8,19 @@ define([
   var CustomCell = React.createClass({
   	getDefaultProps: function () {
       return {
+        highlighted: false,
         children: '',
         onChange: function () {}
       };
     },
 
-    handleClick: function () {
-      
-    },
-
     render: function () {
       return (
-        <td>
-          {/*<div>{this.props.children}</div>*/}
-          <input ref="input" 
+        <td className={this.props.highlighted ? "highlighted" : ''}>
+          <div onClick={this.props.onClick}>{this.props.children}</div>
+          {/*<input ref="input" 
                  onChange={this.props.onChange}
-                 value={this.props.children}></input>
+                 value={this.props.children}></input>*/}
         </td>
       );
     }
