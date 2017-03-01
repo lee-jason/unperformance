@@ -19,10 +19,10 @@ define([
 
     getDefaultProps: function () {
       return {
-        minCols: 8,
-        minRows: 100,
-        maxCols: 12,
-        maxRows: 200
+        minCols: 10,
+        minRows: 150,
+        maxCols: 14,
+        maxRows: 3000
       };
     },
 
